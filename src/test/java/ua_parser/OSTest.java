@@ -24,15 +24,16 @@ public class OSTest extends DataTest<OS> {
   protected OS getRandomInstance(long seed, StringGenerator g) {
     random.setSeed(seed);
     String family = g.getString(256),
+           superfamily = g.getString(256),
            major = (random.nextBoolean() ? g.getString(8): null),
            minor = (random.nextBoolean() ? g.getString(8): null),
            patch = (random.nextBoolean() ? g.getString(8): null),
            patchMinor = (random.nextBoolean() ? g.getString(8): null);
-    return new OS(family, major, minor, patch, patchMinor);
+    return new OS(family, superfamily, major, minor, patch, patchMinor);
   }
 
   @Override
   protected OS getBlankInstance() {
-    return new OS(null, null, null, null, null);
+    return new OS(null, null, null, null, null, null);
   }
 }

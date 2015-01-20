@@ -80,10 +80,10 @@ public class ParserTest {
     String agentString2 = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B206 Safari/7534.48.3";
 
     Client expected1 = new Client(new UserAgent("Firefox", "3", "5", "5"),
-                                  new OS("Mac OS X", "10", "4", null, null),
+                                  new OS("Mac OS X", null, "10", "4", null, null),
                                   new Device("Other", null, null));
     Client expected2 = new Client(new UserAgent("Mobile Safari", "5", "1", null),
-                                  new OS("iOS", "5", "1", "1", null),
+                                  new OS("iOS", null, "5", "1", "1", null),
                                   new Device("iPhone", "Apple", "iPhone"));
 
     assertThat(parser.parse(agentString1), is(expected1));

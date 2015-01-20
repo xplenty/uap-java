@@ -54,7 +54,7 @@ public class OSParser {
         return os;
       }
     }
-    return new OS("Other", null, null, null, null);
+    return new OS("Other", null, null, null, null, null);
   }
 
   protected static OSPattern patternFromMap(Map<String, String> configMap) {
@@ -66,18 +66,21 @@ public class OSParser {
     return(new OSPattern(Pattern.compile(regex),
                          configMap.get("os_replacement"),
                          configMap.get("os_v1_replacement"),
-                         configMap.get("os_v2_replacement")));
+                         configMap.get("os_v2_replacement"),
+                         configMap.get("superfamily_replacement")));
   }
 
   protected static class OSPattern {
     private final Pattern pattern;
-    private final String osReplacement, v1Replacement, v2Replacement;
+    private final String osReplacement, v1Replacement, v2Replacement, superfamilyReplacement;
 
-    public OSPattern(Pattern pattern, String osReplacement, String v1Replacement, String v2Replacement) {
+    public OSPattern(Pattern pattern, String osReplacement, String v1Replacement,
+                     String v2Replacement, String superfamilyReplacement) {
       this.pattern = pattern;
       this.osReplacement = osReplacement;
       this.v1Replacement = v1Replacement;
       this.v2Replacement = v2Replacement;
+      this.superfamilyReplacement = superfamilyReplacement;
     }
 
     public OS match(String agentString) {
@@ -119,7 +122,7 @@ public class OSParser {
         }
       }
 
-      return family == null ? null : new OS(family, v1, v2, v3, v4);
+      return family == null ? null : new OS(family, superfamilyReplacement, v1, v2, v3, v4);
     }
   }
 }

@@ -26,8 +26,12 @@ import java.util.Map;
 public class OS {
   public final String family, major, minor, patch, patchMinor;
 
-  public OS(String family, String major, String minor, String patch, String patchMinor) {
+  // unused for equals or hashcode
+  public final String superfamily;
+
+  public OS(String family, String superfamily, String major, String minor, String patch, String patchMinor) {
     this.family = family;
+    this.superfamily = (superfamily == null) ? family: superfamily;
     this.major = major;
     this.minor = minor;
     this.patch = patch;
@@ -35,7 +39,7 @@ public class OS {
   }
 
   public static OS fromMap(Map<String, String> m) {
-    return new OS(m.get("family"), m.get("major"), m.get("minor"), m.get("patch"), m.get("patch_minor"));
+    return new OS(m.get("family"), m.get("superfamily"), m.get("major"), m.get("minor"), m.get("patch"), m.get("patch_minor"));
   }
 
   @Override
@@ -63,7 +67,8 @@ public class OS {
 
     @Override
   public String toString() {
-    return String.format("{\"family\": %s, \"major\": %s, \"minor\": %s, \"patch\": %s, \"patch_minor\": %s}",
+    return String.format("{\"superfamily\": %s, \"family\": %s, \"major\": %s, \"minor\": %s, \"patch\": %s, \"patch_minor\": %s}",
+                         superfamily == null ? Constants.EMPTY_STRING : '"' + superfamily + '"',
                          family == null ? Constants.EMPTY_STRING : '"' + family + '"',
                          major == null ? Constants.EMPTY_STRING : '"' + major + '"',
                          minor == null ? Constants.EMPTY_STRING : '"' + minor + '"',
